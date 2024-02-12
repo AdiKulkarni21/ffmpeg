@@ -1,0 +1,23 @@
+package com.ffmpeg.ffmpeg;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
+import ws.schild.jave.AudioAttributes;
+
+
+public class Execution {
+	File source = new File("source.avi");
+	FileOutputStream fileOutputStream = new FileOutputStream(source);
+	byte[] bytes = video.getInputStream().readAllBytes();
+	fileOutputStream.write(bytes);
+	fileOutputStream.flush();
+	fileOutputStream.close();
+	AudioAttributes audio = new AudioAttributes();
+	audio.setCodec("aac");
+	// here 64kbit/s is 64000
+	audio.setBitRate(64000);
+	audio.setChannels(2);
+	audio.setSamplingRate(44100);
+}
+//import necessary libraries

@@ -1,0 +1,62 @@
+package com.ffmpeg.ffmpeg;
+import java.io.File;
+import java.io.IOException;
+
+import org.springframework.http.ResponseEntity;
+
+import ws.schild.jave.AudioAttributes;
+import ws.schild.jave.Encoder;
+import ws.schild.jave.EncodingAttributes;
+import ws.schild.jave.MultimediaObject;
+import ws.schild.jave.VideoAttributes;
+import ws.schild.jave.VideoAttributes.X264_PROFILE;
+import ws.schild.jave.VideoSize;
+
+
+public class Execution {
+	public void execution(){
+		File source1 = new File("C:\\Users\\FL638QJ\\Downloads\\ffmpeg\\ffmpeg");
+		if (!source1.exists()) {
+		    System.err.println("Source file not found.");
+		    return; // or handle the error accordingly
+		}
+
+File source= new File("source.mp4");
+	File target = new File("target.mp3");
+	
+	//Audio Details-------------
+	AudioAttributes audio = new AudioAttributes();
+	audio.setCodec("aac");
+	// here 64kbit/s is 64000
+	audio.setBitRate(64000);
+	audio.setChannels(2);
+	audio.setSamplingRate(44100);
+	
+	//Video Details and attributes
+	VideoAttributes video = new VideoAttributes();
+	video.setCodec("h264");
+	video.setX264Profile(X264_PROFILE.BASELINE);
+	// Here 160 kbps video is 160000
+	video.setBitRate(160000);
+	// More the frames more quality and size, but keep it low based on devices like mobile
+	video.setFrameRate(15);
+	video.setSize(new VideoSize(400, 300));
+	
+	
+	EncodingAttributes attrs = new EncodingAttributes();
+	attrs.setFormat("mp4");
+	attrs.setAudioAttributes(audio);
+	attrs.setVideoAttributes(video);
+	
+	try {
+		  Encoder encoder = new Encoder();  
+		  encoder.encode(new MultimediaObject(source), target, attrs);
+		 
+		} catch (Exception e) {  
+		   /*Handle here the video failure*/   
+		   e.printStackTrace();
+		}
+
+	
+}}
+//import necessary libraries
